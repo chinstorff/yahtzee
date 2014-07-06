@@ -1,9 +1,5 @@
 yahtzee = {};
 
-yahtzee.Game = function (num_players) {
-    var num_players = num_players || 0;
-};
-
 Turn = function () {
     this.dice = [Math.ceil(Math.random() * 6),
 		 Math.ceil(Math.random() * 6),
@@ -14,87 +10,98 @@ Turn = function () {
 },
 
 Turn.prototype = {
-    rollAgain: function (array) { // [true, true, false, true, true] rolls all but dice[2] again
-	this.pastDice.push(this.dice);
-	for (var i = 0; i < this.dice.length; i++) {
-	    dice[i] = array ? Math.ceil(Math.random() * 6) : dice[i];
+    reroll: function (array) { // [true, true, false, true, true] rolls all but dice[2] again
+	if (this.pastDice.length < 2) {
+	    array = array || [true, true, true, true, true];
+	    this.pastDice.push(this.dice);
+	    for (var i = 0; i < this.dice.length; i++) {
+		this.dice[i] = array[i] ? Math.ceil(Math.random() * 6) : this.dice[i];
+	    }
+	    return true;
 	}
+	return false;
     },
 };
 
-Player = function () {
-    this.score = {
-	aces: '—',
-	twos: '—',
-	threes: '—',
-	fours: '—',
-	fives: '—',
-	sixes: '—',
-
-	threeOfAKind: '—',
-	fourOfAKind: '—',
-	fullHouse: '—',
-	smallStraight: '—',
-	largeStraight: '—',
-	yahtzee: '—',
-	chance: '—',
-	yahtzeeBonus: '0',
-
-	bonus: function () {
-	    if (this.sum(true) >= 63) {
-		return '35';
-	    }
-	    return 0;
-	},
-	upperSum: function (ignoreBonus) {
-	    var sum = 0;
-	    sum += +this.aces;
-	    sum += +this.twos;
-	    sum += +this.threes;
-	    sum += +this.fours;
-	    sum += +this.fives;
-	    sum += +this.sixes;
-
-	    if (!ignoreBonus) {
-		sum += +this.bonus();
-	    }
-
-	    return sum.toString();
-	},
-	lowerSum: function () {
-	    var sum = 0;		
-
-	    for (var key in this) {
-		if (!isNaN(+this[key])) {
-		    sum += +this[key];
-		}
-	    }
-	    
-	    sum -= this.upperSum(true);
-
-	    return sum.toString();
-	},
-
-	total: function () {
-	    return (+this.upperSum() + +this.lowerSum());
-	},
-    };
-
-    this.turns = [new Turn()];
+Score = function () {
+    this.aces = '—';
+    this.twos = '—';
+    this.threes = '—';
+    this.fours = '—';
+    this.fives = '—';
+    this.sixes = '—';
+    
+    this.threeOfAKind = '—';
+    this.fourOfAKind = '—';
+    this.fullHouse = '—';
+    this.smallStraight = '—';
+    this.largeStraight = '—';
+    this.yahtzee = '—';
+    this.chance = '—';
+    this.yahtzeeBonus = '0';
 };
 
-Player.prototype = {
+Score.prototype = {    
+    bonus: function () {
+	if (this.sum(true) >= 63) {
+	    return '35';
+	}
+	return 0;
+    },
+    upperSum: function (ignoreBonus) {
+	var sum = 0;
+	sum += +this.aces;
+	sum += +this.twos;
+	sum += +this.threes;
+	sum += +this.fours;
+	sum += +this.fives;
+	sum += +this.sixes;
+
+	if (!ignoreBonus) {
+	    sum += +this.bonus();
+	}
+
+	return sum.toString();
+    },
+    lowerSum: function () {
+	var sum = 0;		
+
+	for (var key in this) {
+	    if (!isNaN(+this[key])) {
+		sum += +this[key];
+	    }
+	}
+	
+	sum -= this.upperSum(true);
+
+	return sum.toString();
+    },
+
+    total: function () {
+	return (+this.upperSum() + +this.lowerSum());
+    },
+
+    isOpen: function (field) {
+	return isNaN(this[field]);
+    },
+
     record: function (field) {
-	this.score[field] = calcValue(field).toString();
+	this[field] = calcValue(field).toString();
 	return this;
     },
-    
-    isOpen: function (field) {
-	return isNaN(this.score[location][field]);
-    },
-    
+
+}
+
+Player = function () {
+    this.score = new Score();
+
+    this.turns = [new Turn()];
+    this.turn = this.turns[0];
+};
+
+Player.prototype = {    
     calculateScore: function () {
-	var score = {};
+	var score = new Score();
 
 	var dice = this.turns[this.turns.length - 1].dice;
 	var frequency = [0, 0, 0, 0, 0, 0];
@@ -149,5 +156,16 @@ Player.prototype = {
 
     nextTurn: function () {
 	this.turns.push(new Turn());
+	this.turn = this.turns[this.turns.length - 1];
     },
 };
+
+Game = function (num_players) {
+    this.num_players = num_players || 1;
+    this.players = [];
+
+    for (var i = 0; i < num_players; i++) {
+	this.players.push(new Player());
+    }
+};
+
