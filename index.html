@@ -7,80 +7,40 @@
 
   <link rel="shortcut icon" type="image/png" href="/assets/favicon.png">
 
-  <!-- Le styles -->
+  <!-- Styles -->
   <link href="/assets/css/bootstrap.css" rel="stylesheet">
   <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
   <link href="/assets/css/yahtzee.css" rel="stylesheet">
-  
-  <script type="text/javascript" src="/assets/js/jquery-2.0.3.min.js"></script>
-  <script src="/assets/js/bootstrap-rowlink.js"></script>
-  <script type="text/javascript">
-   var _gaq = _gaq || [];
-   _gaq.push(['_setAccount', 'UA-43949530-3']);
-   _gaq.push(['_trackPageview']);
 
-   (function() {
-     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-   })();
-  </script>
+  <!-- Vendor -->
+  <script src="/assets/js/vendor/jquery-2.0.3.min.js"></script>
+  <script src="/assets/js/vendor/underscore-min.js"></script>
+  <script src="/assets/js/vendor/backbone-min.js"></script>
+  <script src="/assets/js/vendor/bootstrap-rowlink.js"></script>
+
+  <!-- JS Lib -->
+  <!--script src="/assets/js/"></script-->
+  
+  <!-- Router -->
+  <script src="/assets/js/router.js"></script>
+  
+  <!-- Models -->
+  <script src="/assets/js/models/game.js"></script>
+  
+  <!-- Views -->
+  <script src="/assets/js/views/generic.js"></script>
+  <script src="/assets/js/views/yahtzee.js"></script>
+
+  <!-- Analytics -->
+  <script src="/assets/js/analytics.js"></script>
+
+  <!-- Templates -->
+  <script type="template" class="yahtzee-template" src="/assets/js/templates/yahtzee.js"></script>
+   
 </head>
 
 <body>
-  <div class="content">
-    <div class="header">
-      <h1>Yahtzee</h1>
-      <p>Total score: 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <a href="http://chinstorff.com" style="color:#F02311;">chinstorff.com</a></p>
-    </div>
-    <div class="board">
-      <div class="dice">
-	<p>
-	  <a id="#adie">0</a><br>
-	  <a id="#bdie">0</a><br>
-	  <a id="#cdie">0</a><br>
-	  <a id="#ddie">0</a><br>
-	  <a id="#edie">0</a><br>
-	</p>
-	&nbsp;<button type="button" class="btn btn-default btn-small" id="roll" style="margin-top:0px">roll</button>
-      </div>
-      <div class="score-column">
-	<table class="table table-condensed table-hover" style="margin-bottom:0px">
-	  <tr id="aces"><td>Aces</td><td>&mdash;</td></tr>
-	  <tr id="twos"><td>Twos</td><td>&mdash;</td></tr>
-	  <tr id="threes"><td>Threes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&mdash;</td></tr>
-	  <tr id="fours"><td>Fours</td><td>&mdash;</td></tr>
-	  <tr id="fives"><td>Fives</td><td>&mdash;</td></tr>
-	  <tr id="sixes"><td>Sixes</td><td>&mdash;</td></tr>
-	</table>
-	
-	<table class="table table-condensed">
-	  <tr><td></td><td></td></tr>
-	  <tr><td>Upper sum</td><td>0</td></tr>
-	  <tr><td>Bonus</td><td>0</td></tr>
-	  <tr><td>Subtotal</td><td>0</td></tr>
-	  <tr><td></td><td></td></tr>
-	</table>
-      </div>
-      <div class="score-column">
-	<table class="table table-condensed table-hover" style="margin-bottom:0px">
-	  <tr><td>3 of a kind&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>&mdash;</td></tr>
-	  <tr><td>4 of a kind</td><td>&mdash;</td></tr>
-	  <tr><td>Full house</td><td>&mdash;</td></tr>
-	  <tr><td>Small straight</td><td>&mdash;</td></tr>
-	  <tr><td>Large straight</td><td>&mdash;</td></tr>
-	  <tr><td>Yahtzee</td><td>&mdash;</td></tr>
-	  <tr><td>Chance</td><td>&mdash;</td></tr>
-	</table>
-	<table class="table table-condensed">
-	  <tr><td>Yahtzee bonus</td><td>0</td></tr>
-	  <tr><td></td><td></td></tr>
-	  <tr><td>Subtotal</td><td>0</td></tr>
-	  <tr><td></td><td></td></tr>
-	</table>
-      </div>
-    </div>
-  </div>
+  <div id="yahtzee-view"></div>
+  <script src="/assets/js/app.js"></script>
 </body>
 </html>
