@@ -7,6 +7,10 @@ var Yahtzee = Backbone.Model.extend({
 	fives: '&mdash;',
 	sixes: '&mdash;',
 
+	upperSum: 0,
+	bonus: 0,
+	upperSubtotal: 0,	
+
 	threeOfAKind: '&mdash;',
 	fourOfAKind: '&mdash;',
 	fullHouse: '&mdash;',
@@ -16,6 +20,18 @@ var Yahtzee = Backbone.Model.extend({
 	chance: '&mdash;',
 	yahtzeeBonus: '&mdash;',
 
-	total: '0',
+	lowerSubtotal: 0,
+
+	total: 0,
+
+	adie: 0,
+	bdie: 0,
+	cdie: 0,
+	ddie: 0,
+	edie: 0,
+    },
+
+    initialize: function initializeF () {
+	console.log(this);
     },
 });
