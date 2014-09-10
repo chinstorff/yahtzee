@@ -1,5 +1,6 @@
 $(document).ready(function () {    
-    window.app = new YahtzeeView(new Yahtzee());
+    window.yahtzee = new Yahtzee();
+    window.app = new YahtzeeView(yahtzee);
     window.router = new AppRouter(app);
     Backbone.history.start();
 });
