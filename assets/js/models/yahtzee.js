@@ -16,5 +16,6 @@ var Yahtzee = Backbone.Model.extend({
 	chance: '&mdash;',
 	yahtzeeBonus: '&mdash;',
 
+	total: '0',
     },
 });
