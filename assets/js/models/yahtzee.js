@@ -32,6 +32,6 @@ var Yahtzee = Backbone.Model.extend({
     },
 
     initialize: function initializeF () {
-	console.log(this);
+
     },
 });
