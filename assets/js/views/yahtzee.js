@@ -7,6 +7,7 @@ var YahtzeeView = GenericView.extend({
     initialize: function initializeF (options) {
 	this.options = options;
 	this.render();
+	console.log("init");4
     },
 
     render: function renderF() {
