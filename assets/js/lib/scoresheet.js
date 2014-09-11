@@ -1,4 +1,5 @@
 var g = {};
+
 g.Scoresheet = function () {
     this.aces = '—';
     this.twos = '—';
