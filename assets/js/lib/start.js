@@ -1,0 +1,1 @@
+controller = new g.Controller();

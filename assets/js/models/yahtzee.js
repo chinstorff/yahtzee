@@ -8,7 +8,7 @@ var Yahtzee = Backbone.Model.extend({
 	sixes: '&mdash;',
 
 	upperSum: 0,
-	bonus: 0,
+	upperBonus: 0,
 	upperSubtotal: 0,	
 
 	threeOfAKind: '&mdash;',
