@@ -42,7 +42,7 @@ g.Controller = function () {
 var maxStraightLength = function (arr) {
     a = arr.sort();
 
-    var lengths = [0];
+    var lengths = [];
 
     var j;
     for (var i = 0; i < a.length - 1; i++) {
@@ -50,14 +50,15 @@ var maxStraightLength = function (arr) {
 
 	j = i;
 	while (j < a.length) {
-	    if (a[i] === a[j] + j - i) {
+	    if (a[i] - i + j === a[j]) {
 		lengths[i] += 1;
 	    }
 	    else {
 		break;
 	    }
+	    j++;
 	}
     }
 
-    return lengths;
+    return lengths.sort(function (a, b) { return b - a })[0];
 };
