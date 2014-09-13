@@ -1,11 +1,11 @@
 var YahtzeeView = GenericView.extend({
     name: 'yahtzee',
     events: {
-	'click #adie' : 'toggleADie',
-	'click #bdie' : 'toggleADie',
-	'click #cdie' : 'toggleADie',
-	'click #ddie' : 'toggleADie',
-	'click #edie' : 'toggleADie',
+	'click #adie' : 'adie',
+	'click #bdie' : 'bdie',
+	'click #cdie' : 'cdie',
+	'click #ddie' : 'ddie',
+	'click #edie' : 'edie',
 
 	'click #roll' : 'roll',
 
@@ -38,15 +38,43 @@ var YahtzeeView = GenericView.extend({
 	return this;
     },
 
+    toggleDie: function (die) {
+	console.log("toggle " + die);
+	g.keepDice = g.keepDice || [0,0,0,0,0];
+	g.keepDice[die] = (g.keepDice + 1) % 2;
+    },
+    
+    adie: function () {
+	console.log('adie');
+	this.toggleDie(0);
+    },
+
+    bdie: function () {
+	this.toggleDie(1);
+    },
+
+    cdie: function () {
+	this.toggleDie(2);
+    },
+
+    ddie: function () {
+	this.toggleDie(3);
+    },
+    
+    edie: function () {
+	this.toggleDie(4);
+    },
+
     roll: function rollF () {
 	controller.roll();
 	this.render();
-    },
+    },    
 
     selectCategory: function selectCategoryF (cat) {
-	if (isNaN(controller.scoresheet[cat])) {
+	if (isNaN(controller.scoresheet[cat]) && controller.scoresheet.ddie) {
 	    var value = controller.calculateScoresheet()[cat];
 	    controller.scoresheet.record(cat, value);
+	    controller.advanceTurn();
 	    this.render();
 	    return true;
 	}

@@ -3,8 +3,9 @@ g.Controller = function () {
     this.turnCount = 0;
     this.rollCount = 0;
 
-    this.roll = function () {
-	this.scoresheet.roll([1,1,1,1,1]);
+    this.roll = function (arr) {
+	arr = arr || [1,1,1,1,1];
+	this.scoresheet.roll(arr);
 	return this;
     };
 
@@ -37,6 +38,10 @@ g.Controller = function () {
 	ret.chance = dice.reduce(function (a, b) { return a + b });
 	
 	return ret;
+    };
+
+    this.advanceTurn = function () {
+	this.scoresheet.setDice([0,0,0,0,0]);
     };
 };
 

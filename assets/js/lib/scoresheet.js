@@ -32,6 +32,13 @@ g.Scoresheet = function () {
 	return [this.adie, this.bdie, this.cdie, this.ddie, this.edie].sort();
 	// [].sort() works as expected for single digit numbers
     };
+    this.setDice = function (dice) {
+	this.adie = dice[0];
+	this.bdie = dice[1];
+	this.cdie = dice[2];
+	this.ddie = dice[3];
+	this.edie = dice[4];
+    };
 
     this.roll = function (arr) { // [0, 0, 0, 1, 1] rolls ddie and edie
 	var arr = arr || [1, 1, 1, 1, 1];
