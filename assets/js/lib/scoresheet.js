@@ -40,8 +40,8 @@ g.Scoresheet = function () {
 	this.edie = dice[4];
     };
 
-    this.roll = function (arr) { // [0, 0, 0, 1, 1] rolls ddie and edie
-	var arr = arr || [1, 1, 1, 1, 1];
+    this.roll = function (arr) { // [0,0, 0,1,1] rolls ddie and edie
+	var arr = arr || [1,1,1,1,1];
 
 	var letter;
 
