@@ -37,7 +37,6 @@ var YahtzeeView = GenericView.extend({
 	this.theEl().html(markup);
 
 	var letter;
-	g.keepDice = g.keepDice || [1,1,1,1,1];
 	for (var i = 0; i < g.keepDice.length; i++) {
 	    letter = String.fromCharCode('a'.charCodeAt() + i);
 	    if (g.keepDice[i]) {
@@ -51,8 +50,6 @@ var YahtzeeView = GenericView.extend({
     },
 
     toggleDie: function (die) {
-	g.keepDice = g.keepDice || [1,1,1,1,1];
-
 	var letter = String.fromCharCode('a'.charCodeAt() + die);
 	if (controller.scoresheet[letter + 'die']) {
 	    g.keepDice[die] = (g.keepDice[die] + 1) % 2;
@@ -82,8 +79,11 @@ var YahtzeeView = GenericView.extend({
     },
 
     roll: function rollF () {
-	controller.roll(g.keepDice);
-	this.render();
+	if (g.rollCount < 3) {
+	    controller.roll(g.keepDice);
+	    g.rollCount++;
+	    this.render();
+	}
     },    
 
     selectCategory: function selectCategoryF (cat) {
@@ -91,7 +91,8 @@ var YahtzeeView = GenericView.extend({
 	    var value = controller.calculateScoresheet()[cat];
 	    controller.scoresheet.record(cat, value);
 	    controller.advanceTurn();
-	    g.keepDice = undefined;
+	    g.keepDice = [1,1,1,1,1];
+	    g.rollCount = 0;
 	    this.render();
 	    return true;
 	}
