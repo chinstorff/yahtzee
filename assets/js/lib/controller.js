@@ -26,12 +26,13 @@ g.Controller = function () {
 	ret.sixes  = count[5] * 6;
 
 	var scount = count.sort(); // works as expected for single digit numbers
-
+	var straightLength = maxStraightLength(dice);
+	
 	ret.threeOfAKind = scount[5] >= 3 ? dice.reduce(function (a, b) { return a + b }) : 0;
 	ret.fourOfAKind = scount[5] >= 4 ? dice.reduce(function (a, b) { return a + b }) : 0;
 	ret.fullHouse = scount[5] === 3 && scount[4] === 2 ? 25 : 0;
-	ret.smallStraight = 0;
-	ret.largeStright  = 0;
+	ret.smallStraight = straightLength >= 4 ? 30 : 0;
+	ret.largeStraight = straightLength >= 5 ? 40 : 0;
 	ret.yahtzee = scount[5] >= 5 ? 50 : 0;
 	ret.chance = dice.reduce(function (a, b) { return a + b });
 	
